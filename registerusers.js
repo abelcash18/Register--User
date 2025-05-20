@@ -1,15 +1,3 @@
-// let arrayOfUser =[{firstName : "Abel" , 
-//     lastName: "Joseph" , 
-//     dob: "18/09" ,
-//      gender: "male" , 
-//      email: "josephabel540@gmail.com" ,
-//       password: "iyanu@25",
-//        date: Date.now()
-//      }]
-
-
-
-    //  console.log(arrayOfUser)
 let arrayOfUser =[]
      function registerUser(){
         let firstName=
@@ -25,16 +13,9 @@ let arrayOfUser =[]
         let gender =
         document.getElementById("gender").value
 
-
-
-
         let userObject ={  firstName, lastName, dob, email, password,gender, date: new Date().toLocaleDateString()}
-
-        // console.log(userObject)
-
-        arrayOfUser.push(userObject)
-        // console.log(arrayOfUser)
-        displayUser()
+             arrayOfUser.push(userObject)
+              displayUser()
              }
 
 function displayUser(){
@@ -69,8 +50,8 @@ function showUserDetails(index){
 
     const detailsHTML =`
     <p><strong>Full Name: </strong> ${user.firstName} ${user.lastName}</p>
-    <p><strong>email: </strong> ${user.email}</p>
-    <p><strong>Date of birth </strong> ${user.dob}</p>
+    <p><strong>Email: </strong> ${user.email}</p>
+    <p><strong>Date of birth: </strong> ${user.dob}</p>
     <p><strong>Gender: </strong> ${user.gender} </p>
     <p><strong>Registration Date: </strong> ${user.date}</p>`
 
@@ -83,8 +64,7 @@ function showUserDetails(index){
 }
 
 function deleteUser(index){
-    let confirmDelete= confirm(`Are you sure you want to delete
-        ${arrayOfUser[index].firstName}?`)
+    let confirmDelete= confirm(`Are you sure you want to delete${arrayOfUser[index].firstName}?`)
         if(confirmDelete){
             arrayOfUser.splice(index, 1)
             displayUser()
@@ -144,20 +124,3 @@ function resetButton(){
          document.getElementById("dob").value ='';
     
 }
-
-
-// let updateIndex = null
-// function editUser(index){
-//     document.getElementById("btn1").style.display = "block"
-//     document.getElementById("btn2").style.display = "none"
-
-//     document.getElementById("firstName").value = arrayOfUser[index].firstName
-//     document.getElementById("lastName").value = arrayOfUser[index].lastName
-//     document.getElementById("email").value = arrayOfUser[index].email
-//     document.getElementById("dob").value = arrayOfUser[index].dob
-//     document.getElementById("password").value = arrayOfUser[index].password
-//     document.getElementById("gender").value = arrayOfUser[index].gender
-
-//     updateIndex = index
-//   }
-     
