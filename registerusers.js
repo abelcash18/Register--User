@@ -1,4 +1,11 @@
 let arrayOfUser =[]
+
+if (localStorage.getItem("fbUser")){
+    arrayOfUser = JSON.parse(localStorage.getItem("fbUser"))
+}
+else{
+    arrayOfUser =[]
+}
      function registerUser(){
         let firstName=
         document.getElementById("firstName").value
@@ -13,27 +20,31 @@ let arrayOfUser =[]
         let gender =
         document.getElementById("gender").value
 
+
         let userObject ={  firstName, lastName, dob, email, password,gender, date: new Date().toLocaleDateString()}
-             arrayOfUser.push(userObject)
-              displayUser()
+          arrayOfUser.push(userObject)
+
+        let stringifyUser = JSON.stringify(arrayOfUser)
+
+        localStorage.setItem("fbUser", stringifyUser)
+                displayUser(arrayOfUser)
              }
 
-function displayUser(){
+function displayUser(parseUser){
     let show ="";
-    for(let index = 0; index <
-         arrayOfUser.length; index++ ){
-        console.log(arrayOfUser[index])
-
+    
+    for(let index in parseUser){
+         let user = parseUser[index];       
         show += `
         <tr>
-        <td>${index + 1}</td>
+        <td>${parseInt(index) + 1}</td>
 
-         <td>${arrayOfUser[index].firstName}
-         ${arrayOfUser[index].lastName}</td>
-         <td>${arrayOfUser[index].email} </td>
-         <td>${arrayOfUser[index].password}</td>
-         <td>${arrayOfUser[index].gender}</td>
-         <td>${arrayOfUser[index].dob}</td>
+         <td>${user.firstName}
+         ${user.lastName}</td>
+         <td>${user.email} </td>
+         <td>${user.password}</td>
+         <td>${user.gender}</td>
+         <td>${user.dob}</td>
           <td> <button onclick= "event.stopPropagation(); showUserDetails(${index})" type="button" class="btn btn-primary btn-sm" >View</button></td>              
          <td> <button onclick= "editUser(${index})" type="button" class="btn btn-warning btn-sm" >Edit</button></td>
            <td> <button onclick= "deleteUser(${index})" type="button" class="btn btn-danger" >Delete</button></td>               
@@ -46,14 +57,15 @@ function displayUser(){
 }
 
 function showUserDetails(index){
-    const user = arrayOfUser[index]
+    const user = arrayOfUser[index];
 
     const detailsHTML =`
     <p><strong>Full Name: </strong> ${user.firstName} ${user.lastName}</p>
-    <p><strong>Email: </strong> ${user.email}</p>
-    <p><strong>Date of birth: </strong> ${user.dob}</p>
+    <p><strong>email: </strong> ${user.email}</p>
+    <p><strong>Date of birth </strong> ${user.dob}</p>
     <p><strong>Gender: </strong> ${user.gender} </p>
-    <p><strong>Registration Date: </strong> ${user.date}</p>`
+    <p><strong>Registration Date: </strong> ${user.date}</p>
+    `;
 
     document.getElementById("modalBody").innerHTML
  = detailsHTML;
@@ -64,12 +76,19 @@ function showUserDetails(index){
 }
 
 function deleteUser(index){
-    let confirmDelete= confirm(`Are you sure you want to delete${arrayOfUser[index].firstName}?`)
+    let confirmDelete= confirm(`Are you sure you want to delete
+        ${arrayOfUser[index].firstName}?`)
+
         if(confirmDelete){
             arrayOfUser.splice(index, 1)
-            displayUser()
+            displayUser(arrayOfUser)
             console.log(arrayOfUser)
         }
+         let stringifyUser = JSON.stringify(arrayOfUser)
+
+        localStorage.setItem("fbUser", stringifyUser)
+        displayUser(arrayOfUser)
+    
 }
 
 
@@ -92,6 +111,12 @@ function editUser(index){
      arrayOfUser[index].gender
 
      updateIndex = index
+
+      let stringifyUser = JSON.stringify(arrayOfUser)
+
+        localStorage.setItem("fbUser", stringifyUser)
+        displayUser(arrayOfUser)
+    
 }
 
 function updateUser(){
@@ -112,15 +137,16 @@ function updateUser(){
     document.getElementById("gender").value
     console.log(arrayOfUser)
 
-    displayUser()
+     let stringifyUser = JSON.stringify(arrayOfUser)
+
+        localStorage.setItem("fbUser", stringifyUser)
+    displayUser(arrayOfUser)
 }
 
-function resetButton(){
-    document.getElementById("firstName").value ='';
-     document.getElementById("lastName").value ='';
-      document.getElementById("email").value ='';
-       document.getElementById("password").value ='';
-        document.getElementById("gender").value ='';
-         document.getElementById("dob").value ='';
-    
+function getAllUser(){
+    let getUser = localStorage.getItem("fbUser")
+    let parseUser = JSON.parse(getUser)
+
+    displayUser(parseUser)
+    console.log()
 }
